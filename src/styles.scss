@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importez d'autres fichiers si nécessaire */
+
+/* Définir les variables CSS globales */
+@font-face {
+    font-family: "phenix";
+    // src: url("../font/Fonts/WEB/fonts/GeneralSans-Bold.woff2");
+    src: url("./assets/font/Fonts/WEB/fonts/GeneralSans-Bold.woff2");
+    /* font-weight: normal; */
+    font-style: normal;
+}
+:root {
+  --primary: #0f0f0f;
+  --secondary: #f1f1f1d5;
+  --phenix-gray: rgba(128, 128, 128, 0.2);
+  margin: 0;
+  padding: 0;
+}
+
+/* Thème sombre */
+.dark-mode {
+  --primary: #f1f1f1;
+  --secondary: #0f0f0f;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
