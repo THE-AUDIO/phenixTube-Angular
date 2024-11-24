@@ -163,12 +163,12 @@ svg{
     position: relative;
     overflow: hidden;
     border-radius: 1rem;
+    box-shadow: 0 0 .1rem var(--secondary);
 }
 .video video{
     object-fit: cover;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 5rem var(--secondary);
     cursor: pointer;
 }
 .description{

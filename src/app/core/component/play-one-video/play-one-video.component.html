@@ -32,7 +32,7 @@
     <div class="container">
         <div class="video_container">
             <div class="video_play" *ngIf="videoFound$ | async as video;">
-                <video class="video_play_now" [src]="video?.path" controls [autoplay]="true" [muted]="true" ></video>
+                <video class="video_play_now" [src]="video?.path" controls [autoplay]="true" [muted]="false" ></video>
                 <div class="video_description">
                     <div class="title">
                         <span>{{video?.name}}</span>

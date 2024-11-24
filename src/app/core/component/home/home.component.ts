@@ -32,7 +32,7 @@ export class HomeComponent implements AfterViewInit, OnInit{
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.handleVideoElements()
-    }, 3000);
+    }, 500);
   }
   
   chooseStateClicked(){
