@@ -272,61 +272,54 @@
       </div>
       <div class="container_video">
         @for (video of videoList; track video.id ) {
-          <div class="video_item">
+        <div class="video_item">
           <div class="video" (click)="playOne(video.id)">
             <video
+              #videoPlayer
               [src]="video.path"
               (mouseenter)="onMouseEnter($event)"
               (mouseleave)="onMouseLeave($event)"
-              #videos
               [muted]="true"
             ></video>
           </div>
           <div class="description">
-            <span class="author">Eminem</span>
-            <span class="title">{{video.name}}</span
-            >
-            <span class="type">Clip</span>
+            <span class="author">Artiste</span>
+            <span class="title">{{ video.name }}</span>
+            <span class="type">{{video.type}}</span>
           </div>
         </div>
         }
       </div>
     </div>
-    <section class="presentation" [ngClass]="{'remove': isChoose}" #presentation>
-        <span class="welcome">PhenixTube</span>
-        <span class="question">Quelle type de video aimeriez vous?</span>
-        <div class="container-choix">
-            <div class="card">
-                <div class="card__item" (click)="chooseType()">
-                    <div class="elt_item image-content2">
-                    </div>
-                    <span>Tuto</span>
-                </div>
-                <div class="card__item" (click)="chooseType()">
-                    <div class="elt_item image-content0">
-                    </div>
-                    <span>Film</span>
-                </div>
-                <div class="card__item" (click)="chooseType()">
-                    <div class="elt_item image-content1">
-                    </div>
-                    <span>clip</span>
-                </div>
+    <section
+      class="presentation"*ngIf="this.chooseState" [ngClass]="{ remove: isChoose }"#presentation>
+      <span class="welcome">PhenixTube</span>
+      <span class="question">Quelle type de video aimeriez vous?</span>
+      <div class="container-choix">
+        <div class="card">
+          <div class="card__item" (click)="chooseType('tuto')">
+            <div class="elt_item image-content2"></div>
+            <span>Tuto</span>
+          </div>
+          <div class="card__item" (click)="chooseType('film')">
+            <div class="elt_item image-content0"></div>
+            <span>Film</span>
+          </div>
+          <div class="card__item" (click)="chooseType('clip')">
+            <div class="elt_item image-content1"></div>
+            <span>clip</span>
+          </div>
 
-                <div class="card__item" (click)="chooseType()">
-                    <div class="elt_item image-content3">
-                    </div>
-                    <span>Lyrics</span>
-                </div>
-                <div class="card__item" (click)="chooseType()">
-                    <div class="elt_item image-content4">
-                    </div>
-                    <span>funny</span>
-                </div>
-
-            </div>
-
+          <div class="card__item" (click)="chooseType('lyrics')">
+            <div class="elt_item image-content3"></div>
+            <span>Lyrics</span>
+          </div>
+          <div class="card__item" (click)="chooseType('funny')">
+            <div class="elt_item image-content4"></div>
+            <span>funny</span>
+          </div>
         </div>
+      </div>
     </section>
   </body>
 </html>

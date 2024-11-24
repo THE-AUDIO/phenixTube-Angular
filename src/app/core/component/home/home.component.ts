@@ -9,47 +9,78 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit{
-
+export class HomeComponent implements AfterViewInit, OnInit{
+  type:string | null = sessionStorage.getItem('type_video');
   videoList!: VideoModel[]
   isDarkMode:boolean = false;
-  isChoose:boolean = false
+  isChoose:boolean = false;
+  chooseState:boolean = true
   @ViewChild('presentation')sectionPresentation!: ElementRef;
-  @ViewChildren('videos') videoPlayers!: QueryList<any>
+  @ViewChildren('videoPlayer') videoPlayers!: QueryList<ElementRef>;
 
   constructor(
     private themeService: ThemeService,
     private videoService: VideoService,
     private route: Router
   ) {}
-  advanceAllVideos(): void {
-    this.videoPlayers.forEach((video) => {  
-      const videoElement = video.nativeElement as HTMLVideoElement;
-      if (videoElement) {
-        videoElement.currentTime += 80;  // Avancer de 80 secondes
-      }
-    });
+  ngOnInit(): void {
+    this.displatVideo()
+    this.chooseStateClicked();
   }
 
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.handleVideoElements()
+    }, 3000);
+  }
+  
+  chooseStateClicked(){
+    console.log(this.chooseState);
+    if(this.type !=null){
+      this.chooseState = false;
+    console.log(this.chooseState);
+    }
+  }
+  async displatVideo(){
+    if(this.type !=null){
+      await this.getAllvideo(this.type)
+    }
+  }
+  handleVideoElements(): void {
+    const allVideoElements = this.videoPlayers.toArray();
+    console.log(allVideoElements);
+    allVideoElements.forEach((videoElement: ElementRef) => {
+      const video = videoElement.nativeElement as HTMLVideoElement;
+      video.controls
+      video.play()
+      video.currentTime = 5
+      video.pause()
+    });
+  }
+  
   tggleDarokMode(): void {
     this.isDarkMode = !this.isDarkMode;
     this.themeService.setDarkMode(this.isDarkMode);
   }
-  chooseType(){    
+  async chooseType(type:string){
+    this.type = type
      if (!this.isChoose) {
+      this.getAllvideo(this.type)
+      sessionStorage.setItem('type_video', this.type)
       this.sectionPresentation.nativeElement.innerHTML = '';
       this.isChoose = true
      }
   }
-  async getAllvideo(){
-       (this.videoService.getAllVideo()).subscribe((data)=>{
+  
+  async getAllvideo(type:string){
+      (this.videoService.getAllVideo(type)).subscribe((data)=>{
         this.videoList = data
-        console.log(this.videoList);   
-      })
+        
+      })  
   }
   playOne(id:number) {
       this.route.navigate([`phenixTube/${id}`])
-      console.log(id);
     }
     onMouseEnter(event: MouseEvent): void {
       const videoElement = event.target as HTMLVideoElement;
@@ -61,10 +92,5 @@ export class HomeComponent implements OnInit, AfterViewInit{
       const videoElement = event.target as HTMLVideoElement;
       videoElement.pause();  // Met la vidéo en pause quand la souris quitte l'élément
     }
-    ngOnInit(): void {
-      this.getAllvideo()
-    }
-    ngAfterViewInit(): void {
-      this.advanceAllVideos()
-    }
+  
 }

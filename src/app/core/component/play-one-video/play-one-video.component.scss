@@ -30,7 +30,7 @@ body{
     /* height: 100%; */
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: start;
     color: var(--secondary);
 }
 .search{
@@ -82,7 +82,7 @@ svg{
 
 .video_container{
   display: flex;
-  align-items: flex-start;
+  align-items: start;
   justify-content: space-between;
   width: 90%;
   height: 100%;
@@ -93,7 +93,7 @@ svg{
     border-radius: 1rem;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: start;
     flex-direction: column;
 }
 
@@ -140,8 +140,8 @@ svg{
     width: 95%;
     height: 8vh;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+    align-items: start;
+    justify-content: start;
     cursor: pointer;
 }
 .video_suggestion_item > video{
@@ -154,7 +154,7 @@ svg{
     height: 100%;
     width: 60%;
     display: flex;
-    align-items: flex-start;
+    align-items: start;
     justify-content: space-around;
     flex-direction: column;
     padding-left: 1rem;

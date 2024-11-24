@@ -10,10 +10,10 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class VideoService {
   constructor(private http: HttpClient) {}
-
+  VideoList!: Observable<VideoModel[]>
   // Récupérer toutes les vidéos
-  getAllVideo(): Observable<VideoModel[]> {
-    return this.http.get<VideoModel[]>(`${environnement.apiUrl}/video`).pipe(
+  getAllVideo(type:string): Observable<VideoModel[]> {
+    return this.VideoList = this.http.get<VideoModel[]>(`${environnement.apiUrl}/${type}`).pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération des vidéos', error);
         return of([]); // Retourne un tableau vide en cas d'erreur
@@ -23,7 +23,12 @@ export class VideoService {
 
   // Récupérer une vidéo par son ID
   getVideoById(videoId: number): Observable<VideoModel | undefined> {
-    return this.getAllVideo().pipe(
+    const type = sessionStorage.getItem('type_video')
+    console.log(type); 
+    if(type){
+      this.getAllVideo(type)
+    }
+    return this.VideoList.pipe(
       map(allVideos => allVideos.find(video => video.id === videoId))
     );
   }

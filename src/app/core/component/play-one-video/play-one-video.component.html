@@ -36,11 +36,20 @@
                 <div class="video_description">
                     <div class="title">
                         <span>{{video?.name}}</span>
-                        <span>Video</span>
+                        <span>{{video.type}}</span>
                     </div>
                 </div>
             </div>
             <div class="video_suggestion">
+                @for (videoSuggestion of videoSuggestion ; track  videoSuggestion.id) {
+                    <div class="video_suggestion_item">
+                        <video [src]="videoSuggestion.path"></video>
+                        <div class="video_suggestion__description">
+                            <span class="video_title">{{videoSuggestion.name}}</span>
+                            <span class="video_sous_titre">{{videoSuggestion.type}}</span>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
