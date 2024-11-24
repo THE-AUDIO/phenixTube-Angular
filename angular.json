@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "phenixTube:build:production"
+              "buildTarget": "phenixTube:build:production"
             },
             "development": {
-              "browserTarget": "phenixTube:build:development"
+              "buildTarget": "phenixTube:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "phenixTube:build"
+            "buildTarget": "phenixTube:build"
           }
         },
         "test": {

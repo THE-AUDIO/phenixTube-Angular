@@ -1,11 +1,11 @@
-import { PresentationComponent } from './component/presentation/presentation.component';
+import { HomeComponent } from './component/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './component/home/home.component';
+import { PlayOneVideoComponent } from './component/play-one-video/play-one-video.component';
 
 const routes: Routes = [
-  {path:"",component: PresentationComponent},
-  {path:'home | phenixTube', component: HomeComponent}
+  {path:"phenixTube",component: HomeComponent},
+  {path:'phenixTube/:id', component: PlayOneVideoComponent}
 ];
 
 @NgModule({

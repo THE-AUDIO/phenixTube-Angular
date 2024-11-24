@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ThemeService {
+
   private darkMode: boolean = false;
 
   setDarkMode(isDarkMode: boolean): void {
@@ -18,4 +19,6 @@ export class ThemeService {
   isDarkMode(): boolean {
     return this.darkMode;
   }
+
+
 }
