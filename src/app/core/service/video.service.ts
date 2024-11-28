@@ -24,7 +24,6 @@ export class VideoService {
   // Récupérer une vidéo par son ID
   getVideoById(videoId: number): Observable<VideoModel | undefined> {
     const type = sessionStorage.getItem('type_video')
-    console.log(type); 
     if(type){
       this.getAllVideo(type)
     }
@@ -34,18 +33,17 @@ export class VideoService {
   }
   handleVideoElements(videoPlayers:QueryList<ElementRef>): void {
     const allVideoElements = videoPlayers.toArray();
-    console.log(allVideoElements);
     allVideoElements.forEach((videoElement: ElementRef) => {
       const video = videoElement.nativeElement as HTMLVideoElement;
       video.controls
-      video.play()
+      // video.play()
       video.currentTime = 15
       video.pause()
     });
   }
   onMouseEnter(event: MouseEvent): void {
     const videoElement = event.target as HTMLVideoElement;
-    videoElement.play();  // Lance la vidéo quand l'utilisateur survole
+    // videoElement.play();  // Lance la vidéo quand l'utilisateur survole
     videoElement.currentTime = 0;  // Reviens au début pour voir un aperçu
   }
 

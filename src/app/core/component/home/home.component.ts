@@ -3,6 +3,9 @@ import { VideoService } from './../../service/video.service';
 import {  AfterViewInit, Component, ElementRef, OnInit, QueryList, viewChild, ViewChild, ViewChildren } from '@angular/core';
 import { ThemeService } from '../../service/theme.service';
 import { Router } from '@angular/router';
+import { FormControl, FormBuilder } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-home',
@@ -10,18 +13,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements AfterViewInit, OnInit{
-  type:string | null = sessionStorage.getItem('type_video');
+  type:string | null = sessionStorage.getItem('type_video')
+  autrevideo!: VideoModel[]
   videoList!: VideoModel[]
   isDarkMode:boolean = false;
   isChoose:boolean = false;
   chooseState:boolean = true
+  searchCtrl!: FormControl
   @ViewChild('presentation')sectionPresentation!: ElementRef;
   @ViewChildren('videoPlayer') videoPlayers!: QueryList<ElementRef>;
 
   constructor(
     private themeService: ThemeService,
     private videoService: VideoService,
-    private route: Router
+    private route: Router,
+    private formBuilder:FormBuilder
   ) {}
   ngOnInit(): void {
     this.displatVideo()
@@ -29,11 +35,31 @@ export class HomeComponent implements AfterViewInit, OnInit{
     setTimeout(() => {
       this.handleVideoElements()
     }, 1000);
+   this.iniSearch()
+
   }
 
-
+  iniSearch() {
+    this.searchCtrl = this.formBuilder.control('');
+  
+    this.searchCtrl.valueChanges.pipe(
+      debounceTime(100),               // Délai de 300ms avant d'exécuter la recherche
+      distinctUntilChanged()           // Ne déclenche la recherche que si la valeur a changé
+    ).subscribe((searchTerm: string) => {
+      if (searchTerm.length !=0) {
+        // Filtrage de la liste des vidéos en fonction de la recherche
+        this.videoList = this.autrevideo.filter((video) =>
+          video.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        console.log(this.videoList);
+        
+      } else {
+        // Si le champ de recherche est vide, on réinitialise la liste
+        this.videoList = this.autrevideo;  // Assuming allVideos is the full unfiltered list
+      }
+    });
+  }
   ngAfterViewInit(): void {
-   
   }
   
   chooseStateClicked(){
@@ -69,7 +95,7 @@ export class HomeComponent implements AfterViewInit, OnInit{
   async getAllvideo(type:string){
       (this.videoService.getAllVideo(type)).subscribe((data)=>{
         this.videoList = data
-        
+        this.autrevideo = data
       })  
   }
   playOne(id:number) {
@@ -77,7 +103,7 @@ export class HomeComponent implements AfterViewInit, OnInit{
     }
     onMouseEnter(event: MouseEvent): void {
       const videoElement = event.target as HTMLVideoElement;
-      videoElement.play();  // Lance la vidéo quand l'utilisateur survole
+      // videoElement.play();  // Lance la vidéo quand l'utilisateur survole
       videoElement.currentTime = 0;  // Reviens au début pour voir un aperçu
     }
   

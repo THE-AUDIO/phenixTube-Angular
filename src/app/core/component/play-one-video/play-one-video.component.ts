@@ -21,17 +21,8 @@ export class PlayOneVideoComponent implements AfterViewInit, OnInit{
     private videoService: VideoService,
     private formBuilder: FormBuilder
   ) {}
-
-  searchCtrl!: FormControl
-
-  initSearch(){
-    this.searchCtrl = this.formBuilder.control('')
-    console.log(this.searchCtrl.value);
-    
-  }
   ngOnInit(): void {
     this.getVideosuggestion()
-    this.initSearch()
   }
   ngAfterViewInit(): void {
     this.getOneVideoToPlay();
@@ -44,16 +35,13 @@ export class PlayOneVideoComponent implements AfterViewInit, OnInit{
   }
 
   getVideosuggestion(){
-    const type = sessionStorage.getItem('type_video')
-    console.log('je suis '+type);
-    
+    const type = sessionStorage.getItem('type_video')    
     if(type){
       const videoId = this.activeRoute.snapshot.params['id'];
     this.videoService.getAllVideo(type).subscribe((data)=>{
       this.videoSuggestion = data.filter((video)=>{
         return video.id != videoId
       })
-      console.log(this.videoSuggestion);
       
     })
     }
@@ -64,7 +52,6 @@ export class PlayOneVideoComponent implements AfterViewInit, OnInit{
     this.videoFound$ = this.activeRoute.params.pipe(
       switchMap(params => {
         const videoId = +params['id'];
-        console.log(videoId);
         return this.videoService.getVideoById(videoId);
       })
     );
