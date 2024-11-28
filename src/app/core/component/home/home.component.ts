@@ -12,7 +12,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements AfterViewInit, OnInit{
+export class HomeComponent implements OnInit{
   type:string | null = sessionStorage.getItem('type_video')
   autrevideo!: VideoModel[]
   videoList!: VideoModel[]
@@ -59,9 +59,7 @@ export class HomeComponent implements AfterViewInit, OnInit{
       }
     });
   }
-  ngAfterViewInit(): void {
-  }
-  
+
   chooseStateClicked(){
     console.log(this.chooseState);
     if(this.type !=null){
