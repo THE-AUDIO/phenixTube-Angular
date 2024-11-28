@@ -7,6 +7,7 @@ import { PlayOneVideoComponent } from './component/play-one-video/play-one-video
 import { ThemeService } from './service/theme.service';
 import { HttpClientModule } from '@angular/common/http';
 import { VideoService } from './service/video.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { VideoService } from './service/video.service';
   imports: [
     CommonModule,
     CoreRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers:[
     ThemeService,

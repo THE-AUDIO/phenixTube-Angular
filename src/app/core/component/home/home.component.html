@@ -8,7 +8,7 @@
   <body>
     <nav class="nav_barre">
       <div class="logo">
-        <span class="svg-over" (click)="playOne(1)">
+        <span class="svg-over">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="26"
@@ -124,7 +124,7 @@
           </span>
           <span class="side_title">Accueil</span>
         </div>
-        <div class="side_elt">
+        <div class="side_elt" (click)="this.chooseType('clip')">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@
           </span>
           <span class="side_title">Clip</span>
         </div>
-        <div class="side_elt">
+        <div class="side_elt" (click)="this.chooseType('funny')">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +161,7 @@
           </span>
           <span class="side_title">Blague</span>
         </div>
-        <div class="side_elt">
+        <div class="side_elt" (click)="this.chooseType('lyrics')">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +186,7 @@
           </span>
           <span class="side_title">Lyrics</span>
         </div>
-        <div class="side_elt">
+        <div class="side_elt" (click)="this.chooseType('tuto')">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -210,7 +210,7 @@
           </span>
           <span class="side_title">Tutoriel</span>
         </div>
-        <div class="side_elt">
+        <div class="side_elt" (click)="this.chooseType('film')">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

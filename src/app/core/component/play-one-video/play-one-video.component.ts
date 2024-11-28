@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VideoService } from '../../service/video.service';
 import { VideoModel } from '../../models/video.model';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-play-one-video',
@@ -13,15 +14,33 @@ import { Observable } from 'rxjs';
 export class PlayOneVideoComponent implements AfterViewInit, OnInit{
   videoFound$!: Observable<VideoModel | undefined>;
   videoSuggestion!:VideoModel[]
+  @ViewChildren('videoPlayer') videoPlayers!: QueryList<ElementRef>;
+  @ViewChild('play') playedVideo!: ElementRef;
   constructor(
     private activeRoute: ActivatedRoute,
-    private videoService: VideoService
+    private videoService: VideoService,
+    private formBuilder: FormBuilder
   ) {}
+
+  searchCtrl!: FormControl
+
+  initSearch(){
+    this.searchCtrl = this.formBuilder.control('')
+    console.log(this.searchCtrl.value);
+    
+  }
   ngOnInit(): void {
     this.getVideosuggestion()
+    this.initSearch()
   }
   ngAfterViewInit(): void {
     this.getOneVideoToPlay();
+    setTimeout(() => {
+      this.handleVideoElements()
+    }, 1000); 
+  }
+  handleVideoElements() {
+    this.videoService.handleVideoElements(this.videoPlayers)
   }
 
   getVideosuggestion(){
@@ -29,8 +48,11 @@ export class PlayOneVideoComponent implements AfterViewInit, OnInit{
     console.log('je suis '+type);
     
     if(type){
+      const videoId = this.activeRoute.snapshot.params['id'];
     this.videoService.getAllVideo(type).subscribe((data)=>{
-      this.videoSuggestion = data
+      this.videoSuggestion = data.filter((video)=>{
+        return video.id != videoId
+      })
       console.log(this.videoSuggestion);
       
     })
@@ -47,4 +69,15 @@ export class PlayOneVideoComponent implements AfterViewInit, OnInit{
       })
     );
   }
+  onMouseEnter(event: MouseEvent){
+    this.videoService.onMouseEnter(event);
+  }
+  onMouseLeave(event: MouseEvent){
+    this.videoService.onMouseLeave(event)
+  }
+ playAnOtherVideo(id:number){
+     this.videoFound$ = this.videoService.getVideoById(id)
+ }
+
+
 }

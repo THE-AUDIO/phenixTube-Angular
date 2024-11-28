@@ -23,7 +23,7 @@ app.get('/api/film', (req, res) =>{
         }
         const filmFiles = file.filter(file =>{
             const ext = path.extname(file).toLocaleLowerCase();
-            return ['.mp4', '.webm', '.mov', '.mkv'].includes(ext); // Ajoutez d'autres extensions si nécessaire
+            return ['.mp4', '.avi', '.mov', '.mkv'].includes(ext); // Ajoutez d'autres extensions si nécessaire
         })
         const Films = filmFiles.map((file, index)=>({
             id: index + 1,
@@ -44,7 +44,7 @@ app.get('/api/clip', (req, res) => {
         // Filtrer pour ne garder que les fichiers vidéo
         const clipFolder = files.filter(file => {
             const ext = path.extname(file).toLowerCase();
-            return ['.mp4', '.webm', '.mov', '.mkv'].includes(ext); // Ajoutez d'autres extensions si nécessaire
+            return ['.mp4', '.avi', '.mov', '.mkv'].includes(ext); // Ajoutez d'autres extensions si nécessaire
         });
 
         // Créer un tableau JSON contenant les chemins complets ou les noms des vidéos

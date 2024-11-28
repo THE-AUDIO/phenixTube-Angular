@@ -10,7 +10,7 @@
 <body>
     <nav class="nav-barre">
         <div class="logo">
-            <span>PhenixTube</span>
+            <span><a routerLink="../">PhenixTube</a> </span>
             <span class="logo_icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor"
                     class="bi bi-youtube" viewBox="0 0 16 16">
@@ -20,7 +20,7 @@
             </span>
         </div>
         <div class="search">
-            <input type="search" id="search" placeholder="Chercher">
+            <input type="search" id="search" placeholder="Chercher" [formControl]="searchCtrl">
             <div class="container_icon search_btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="bi bi-search" viewBox="0 0 16 16">
                     <path
@@ -32,7 +32,7 @@
     <div class="container">
         <div class="video_container">
             <div class="video_play" *ngIf="videoFound$ | async as video;">
-                <video class="video_play_now" [src]="video?.path" controls [autoplay]="true" [muted]="false" ></video>
+                <video class="video_play_now" [src]="video?.path" controls [autoplay]="true" [muted]="false" #play></video>
                 <div class="video_description">
                     <div class="title">
                         <span>{{video?.name}}</span>
@@ -43,7 +43,7 @@
             <div class="video_suggestion">
                 @for (videoSuggestion of videoSuggestion ; track  videoSuggestion.id) {
                     <div class="video_suggestion_item">
-                        <video [src]="videoSuggestion.path"></video>
+                        <video [src]="videoSuggestion.path" #videoPlayer (mouseenter)="this.onMouseEnter($event)" (mouseleave)="this.onMouseLeave($event)" [muted]="true" (click)="this.playAnOtherVideo(videoSuggestion.id)"></video>
                         <div class="video_suggestion__description">
                             <span class="video_title">{{videoSuggestion.name}}</span>
                             <span class="video_sous_titre">{{videoSuggestion.type}}</span>

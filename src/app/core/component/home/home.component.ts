@@ -26,13 +26,14 @@ export class HomeComponent implements AfterViewInit, OnInit{
   ngOnInit(): void {
     this.displatVideo()
     this.chooseStateClicked();
+    setTimeout(() => {
+      this.handleVideoElements()
+    }, 1000);
   }
 
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.handleVideoElements()
-    }, 500);
+   
   }
   
   chooseStateClicked(){
@@ -47,18 +48,10 @@ export class HomeComponent implements AfterViewInit, OnInit{
       await this.getAllvideo(this.type)
     }
   }
-  handleVideoElements(): void {
-    const allVideoElements = this.videoPlayers.toArray();
-    console.log(allVideoElements);
-    allVideoElements.forEach((videoElement: ElementRef) => {
-      const video = videoElement.nativeElement as HTMLVideoElement;
-      video.controls
-      video.play()
-      video.currentTime = 5
-      video.pause()
-    });
-  }
   
+  handleVideoElements(){
+    this.videoService.handleVideoElements(this.videoPlayers)
+  }
   tggleDarokMode(): void {
     this.isDarkMode = !this.isDarkMode;
     this.themeService.setDarkMode(this.isDarkMode);

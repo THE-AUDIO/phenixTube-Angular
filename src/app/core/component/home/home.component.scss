@@ -111,8 +111,8 @@ svg{
     height: 100%;
     width: 5%;
     display: flex;
-    align-items: start;
-    justify-content: start;
+    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
     min-width: 4rem;
 }
@@ -176,7 +176,7 @@ svg{
     height: 35%;
     width: 100%;
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
 }
@@ -288,7 +288,7 @@ svg{
     border-radius: 2rem;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     flex-direction: column;
     overflow: hidden;
     position: relative;
